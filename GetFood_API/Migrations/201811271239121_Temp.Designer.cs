@@ -13,7 +13,7 @@ namespace GetFood_API.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201811271146165_Temp"; }
+            get { return "201811271239121_Temp"; }
         }
         
         string IMigrationMetadata.Source

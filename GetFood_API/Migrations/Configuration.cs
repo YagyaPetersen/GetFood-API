@@ -60,9 +60,13 @@ namespace GetFood_API.Migrations
 
             context.Order.AddOrUpdate(
                 a => a.OrderId,
-                new Orders() { OrderId = 1, CustomerId = 1, DriverId = 1, DeliveryTime = new DateTime(00,00,00,00,,00), OrderStatus = ""}
-              
-              
+                new Orders() { OrderId = 1, CustomerId = 1, DriverId = 1, DeliveryTime = new TimeSpan(00,25,00), OrderStatus = "Not Picked Up", DeliveryFee = 10, OverallFee = 40, PickupTime = new TimeSpan(00,20,00),Address = "169 Upper Canterbury St, Gardens, Cape Town"}
+                );
+
+            context.FoodOrders.AddOrUpdate(
+                a => a.FoodOrderId,
+                new FoodOrder() { FoodOrderId = 1, FoodId = 1, OrderId = 1}
+                
                 );
         }
     }

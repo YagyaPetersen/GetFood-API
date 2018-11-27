@@ -67,7 +67,7 @@ namespace GetFood_API.Classes
         public Driver Driver { get; set; }
 
         [Required]
-        public DateTime DeliveryTime { get; set; }
+        public TimeSpan DeliveryTime { get; set; }
 
         [Required]
         public string OrderStatus { get; set; }
@@ -79,7 +79,7 @@ namespace GetFood_API.Classes
         public decimal OverallFee { get; set; }
 
         [Required]
-        public DateTime PickupTime { get; set; }
+        public TimeSpan PickupTime { get; set; }
 
         [Required]
         [MaxLength(70)]
