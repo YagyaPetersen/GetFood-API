@@ -12,15 +12,15 @@ namespace GetFood_API.Controllers
     {
        GetFoodContext GetFoodContext = new GetFoodContext();
 
-        [Route("api/order/customer/{customerId}/driver/{driverId}")]
+        [Route("api/customer")]
         [HttpGet]
-        public IHttpActionResult GetAll(int customerId, int driverId )
+        public IHttpActionResult GetAll(/*int customerId, int driverId*/)
         {
             using (var newContext = new GetFoodContext())
             {
 
-                var all = GetFoodContext.FoodOrders.Include(a=>a.Food).Include(a=>a.Orders).Include(a=>a.Orders.Customer).Include(a=>a.Orders.Driver).Include(a=>a.Food.Restaurant)
-                    .Where(a=>a.FoodId == customerId && a.OrderId == driverId)
+                var all = GetFoodContext.Order.Include(a=>a.Customer).Include(a=>a.Driver)/*.Include(a=>a.Food).Include(a=>a.Orders).Include(a=>a.Orders.Customer).Include(a=>a.Orders.Driver).Include(a=>a.Food.Restaurant)*/
+                    //.Where(a=>a.RestaurantId == customerId && a.FoodId == driverId )
                     .ToList();
 
                 return Ok(all);

@@ -58,16 +58,20 @@ namespace GetFood_API.Classes
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        //[ForeignKey("Restaurant")]
-        //public int? RestaurantId { get; set; }
-       // public virtual Restaurant Restaurant { get; set; }
-
         [ForeignKey("Driver")]
         public int DriverId { get; set; }
         public Driver Driver { get; set; }
 
+        //[ForeignKey("Food")]
+       // public int FoodId { get; set; }
+       // public Food Food { get; set; }
+
+        public bool DriverAcceptance { get; set; }
+
+        public bool RestaurantAcceptance { get; set; }
+
         [Required]
-        public TimeSpan DeliveryTime { get; set; }
+        public TimeSpan PickupTime { get; set; }
 
         [Required]
         public string OrderStatus { get; set; }
@@ -77,13 +81,13 @@ namespace GetFood_API.Classes
 
         [Required]
         public decimal OverallFee { get; set; }
-
+ 
         [Required]
-        public TimeSpan PickupTime { get; set; }
+        public TimeSpan DeliveryTime { get; set; }
 
         [Required]
         [MaxLength(70)]
-        public string Address { get; set; }
+        public string CustomerAddress { get; set; }
 
         
     }

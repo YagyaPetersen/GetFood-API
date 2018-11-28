@@ -200,10 +200,6 @@
     <Compile Include="Migrations\201811260908439_InitialModel.Designer.cs">
       <DependentUpon>201811260908439_InitialModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811271239121_Temp.cs" />
-    <Compile Include="Migrations\201811271239121_Temp.Designer.cs">
-      <DependentUpon>201811271239121_Temp.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -297,9 +293,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811260908439_InitialModel.resx">
       <DependentUpon>201811260908439_InitialModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811271239121_Temp.resx">
-      <DependentUpon>201811271239121_Temp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
