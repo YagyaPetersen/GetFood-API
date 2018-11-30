@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GetFood_API.Classes;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Mime;
 using System.Web.Http;
-using GetFood_API.Classes;
-using GetFood_API.Models.Response;
 
 namespace GetFood_API.Controllers
 {
@@ -20,38 +13,58 @@ namespace GetFood_API.Controllers
         [HttpGet]
         public IHttpActionResult GetAll(int id)
         {
-           
+            var all = GetFoodContext.Foods.Include(a => a.Restaurant)
+                .Where(a => a.RestaurantId == id)
+                .ToList();
 
-                var all = GetFoodContext.Foods.Include(a => a.Restaurant)
-                    .Where(a => a.RestaurantId == id)
-                    .ToList();
+            return Ok(all);
 
-                return Ok(all);
-            
         }
 
         [Route("api/order")]
         [HttpPost]
-        public IHttpActionResult PostOrder([FromBody]Customer CustomerInfo)
+        public IHttpActionResult PostOrder([FromBody]Orders orderInfo)
         {
-           Customer customer = new Customer();
-            customer.FirstName = CustomerInfo.FirstName;
-            customer.LastName = CustomerInfo.LastName;
-            var a = GetFoodContext.Customers.Add(customer);
-            return Json(a);
+           Orders orders = new Orders();
+            orders.CustomerId = orderInfo.CustomerId;
+           // orders.DriverId = orderInfo.DriverId;
+            orders.CustomerAddress = orders.CustomerAddress;
+
+            if (orders.DriverAcceptance = true)
+            {
+                orders.DriverId = orderInfo.DriverId;
+                orders.Driver = orders.Driver
             
+
+
+            else
+                {
+                    orders.Driver = null;
+                }
+            }
+
+
+
+            //Customer customer = new Customer();
+            //customer.FirstName = CustomerInfo.FirstName;
+            //customer.LastName = CustomerInfo.LastName;
+            //GetFoodContext.Customers.Add(customer);
+            //GetFoodContext.SaveChanges();
+            return Json(orderInfo);
         }
 
-        [Route("api/customers")]
-        [HttpGet]
-        public IHttpActionResult GetCus()
+        [Route("api/deleteCustomer/{id}")]
+        [HttpDelete]
+        public IHttpActionResult DeleteCus(int id)
         {
-                var all = GetFoodContext.Customers
-                    //.Where(a => a.RestaurantId == id)
-                    .ToList();
+            var all = GetFoodContext.Customers
+                .Where(a => a.CustomerId == id)
+                .FirstOrDefault();
 
-                return Ok(all);
-            
+            GetFoodContext.Customers.Remove(all);
+            GetFoodContext.SaveChanges();
+
+            return Json(GetFoodContext.Customers);
         }
     }
 }
