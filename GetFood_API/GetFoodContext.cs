@@ -9,7 +9,7 @@ namespace GetFood_API
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Food> Foods { get; set; }
-        public DbSet<FoodOrder> FoodOrders { get; set; }
+        //public DbSet<FoodOrder> FoodOrders { get; set; }
         public DbSet<Orders> Order { get; set; }
 
         public GetFoodContext()

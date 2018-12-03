@@ -62,12 +62,14 @@ namespace GetFood_API.Classes
         public int DriverId { get; set; }
         public Driver Driver { get; set; }
 
-        //[ForeignKey("Food")]
-       // public int FoodId { get; set; }
-       // public Food Food { get; set; }
+        [ForeignKey("Food")]
+        public string FoodId { get; set; }
+        public Food Food { get; set; }
 
+        [Required]
         public bool DriverAcceptance { get; set; }
 
+        [Required]
         public bool RestaurantAcceptance { get; set; }
 
         [Required]
@@ -89,28 +91,31 @@ namespace GetFood_API.Classes
         [MaxLength(70)]
         public string CustomerAddress { get; set; }
 
-        
+         
     }
 
-    public class FoodOrder
-    {
-        [Key]
-        public int FoodOrderId { get; set; }
+    //public class FoodOrder
+    //{
+    //    [Key]
+    //    public int FoodOrderId { get; set; }
 
-        [ForeignKey("Orders")]
-        public int OrderId { get; set; }
-        public Orders Orders { get; set; }
+    //    [ForeignKey("Orders")]
+    //    public int OrderId { get; set; }
+    //    public Orders Orders { get; set; }
 
-        [ForeignKey("Food")]
-        public int FoodId { get; set; }
-        public Food Food { get; set; }
-    }
+    //    [ForeignKey("Food")]
+    //    public int FoodId { get; set; }
+    //    public Food Food { get; set; }
+    //}
 
     public class Food
     {
         [Key]
         public int FoodId { get; set; }
 
+        //[ForeignKey("Orders")]
+        //public int OrderId { get; set; }
+        
         [Required]
         [MaxLength(25)]
         public string FoodName { get; set; }
@@ -128,5 +133,7 @@ namespace GetFood_API.Classes
         [ForeignKey("Restaurant")]
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
+
+       // public virtual Orders Orders { get; set; }
     }
 }
