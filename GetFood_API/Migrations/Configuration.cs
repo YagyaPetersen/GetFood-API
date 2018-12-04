@@ -21,8 +21,9 @@ namespace GetFood_API.Migrations
                 new Restaurant() { RestaurantId = 1, RestaurantName = "McDonald's", Address = "Cnr Kloof & Orange Streets, Gardens, Cape Town" },
                 new Restaurant() { RestaurantId = 2, RestaurantName = "KFC", Address = "Mill Street, Corner Buitekant Street, Gardens, Cape Town" },
                 new Restaurant() { RestaurantId = 3, RestaurantName = "Nandos", Address = "Adderley St, Shop 6V, Grand Parade Centre, Cape Town City Centre, Cape Town" },
-                new Restaurant() { RestaurantId = 4, RestaurantName = "Steers", Address = "Shop 90 Concourse Level, Adderley Street, Golden Acre, Cape Town" }
-              );
+                new Restaurant() { RestaurantId = 4, RestaurantName = "Steers", Address = "Shop 90 Concourse Level, Adderley Street, Golden Acre, Cape Town" },
+                new Restaurant() { RestaurantId = 4, RestaurantName = "Debonairs", Address = "Shop 2 London House, 128 Main Road, Sea Point, Cape Town" }
+                );
 
             context.Foods.AddOrUpdate(
                 a => a.FoodId,
@@ -40,7 +41,11 @@ namespace GetFood_API.Migrations
 
                 new Food() { FoodId = 10, FoodName = "King Steer Burger", Description = "3 beef patties & 3 slices of cheese ,reg chips & sugar free buddy", RestaurantId = 4, Price = 90, PrepTime = new TimeSpan(00, 40, 00) },
                 new Food() { FoodId = 11, FoodName = "1/4 Chicken", Description = "1/4 Chicken, bun and sugar free can", RestaurantId = 4, Price = 53, PrepTime = new TimeSpan(00, 30, 00) },
-                new Food() { FoodId = 12, FoodName = "BratPack", Description = "Snack Beefburger, reg chips & ceres 200ml", RestaurantId = 4, Price = 51, PrepTime = new TimeSpan(00, 25, 00) }
+                new Food() { FoodId = 12, FoodName = "BratPack", Description = "Snack Beefburger, reg chips & ceres 200ml", RestaurantId = 4, Price = 51, PrepTime = new TimeSpan(00, 25, 00) },
+
+                new Food() { FoodId = 13, FoodName = "Chicken & Mushroom Pizza", Description = "Chicken, mushroom, tomato, onion, Debonairs sauce", RestaurantId = 4, Price = 100, PrepTime = new TimeSpan(00,30,00)},
+                new Food() { FoodId = 14, FoodName = "Something Meaty", Description = "Ham, pepperoni, bacon, ground beef, BBQ sauce", RestaurantId = 4, Price = 105, PrepTime = new TimeSpan(00,35,00)},
+                new Food() { FoodId = 15, FoodName = "Original Veggie", Description = "Mushroom, olives, pineapple, onion, tomato, spring onion", RestaurantId = 4, Price = 86, PrepTime = new TimeSpan(00,30,00)}
                 );
 
             context.Drivers.AddOrUpdate(
@@ -60,13 +65,13 @@ namespace GetFood_API.Migrations
 
             context.Order.AddOrUpdate(
                 a => a.OrderId,
-                new Orders() { OrderId = 1, CustomerId = 1,DriverId = 1,DriverAcceptance = true, RestaurantAcceptance = true, DeliveryTime = new TimeSpan(00,25,00), OrderStatus = "Not Collected Yet", DeliveryFee = 10, OverallFee = 50, PickupTime = new TimeSpan(00,20,00),CustomerAddress = "169 Upper Canterbury St, Gardens, Cape Town"}
+                new Orders() { OrderId = 1, CustomerId = 1, DriverId = 1, DriverAcceptance = true, RestaurantAcceptance = true, DeliveryTime = new TimeSpan(00, 25, 00), OrderStatus = "Not Collected Yet", DeliveryFee = 10, OverallFee = 50, PickupTime = new TimeSpan(00, 20, 00), CustomerAddress = "169 Upper Canterbury St, Gardens, Cape Town" }
                 );
 
-            //context.FoodOrders.AddOrUpdate(
-            //    a => a.FoodOrderId,
-            //    new FoodOrder() { FoodOrderId = 1, FoodId = 1, OrderId = 1}
-            //    );
+            context.FoodOrders.AddOrUpdate(
+                a => a.FoodOrderId,
+                new FoodOrder() { FoodOrderId = 1, FoodId = 1, OrderId = 1 }
+                );
         }
     }
 }

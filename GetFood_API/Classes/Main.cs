@@ -62,9 +62,9 @@ namespace GetFood_API.Classes
         public int DriverId { get; set; }
         public Driver Driver { get; set; }
 
-        [ForeignKey("Food")]
-        public string FoodId { get; set; }
-        public Food Food { get; set; }
+        //[ForeignKey("Food")]
+        //public string FoodId { get; set; }
+        //public Food Food { get; set; }
 
         [Required]
         public bool DriverAcceptance { get; set; }
@@ -94,19 +94,19 @@ namespace GetFood_API.Classes
          
     }
 
-    //public class FoodOrder
-    //{
-    //    [Key]
-    //    public int FoodOrderId { get; set; }
+    public class FoodOrder
+    {
+        [Key]
+        public int FoodOrderId { get; set; }
 
-    //    [ForeignKey("Orders")]
-    //    public int OrderId { get; set; }
-    //    public Orders Orders { get; set; }
+        [ForeignKey("Orders")]
+        public int OrderId { get; set; }
+        public Orders Orders { get; set; }
 
-    //    [ForeignKey("Food")]
-    //    public int FoodId { get; set; }
-    //    public Food Food { get; set; }
-    //}
+        [ForeignKey("Food")]
+        public int FoodId { get; set; }
+        public Food Food { get; set; }
+    }
 
     public class Food
     {
