@@ -62,10 +62,6 @@ namespace GetFood_API.Classes
         public int DriverId { get; set; }
         public Driver Driver { get; set; }
 
-        //[ForeignKey("Food")]
-        //public string FoodId { get; set; }
-        //public Food Food { get; set; }
-
         [Required]
         public bool DriverAcceptance { get; set; }
 
@@ -73,7 +69,7 @@ namespace GetFood_API.Classes
         public bool RestaurantAcceptance { get; set; }
 
         [Required]
-        public TimeSpan PickupTime { get; set; }
+        public DateTime PickupTime { get; set; }
 
         [Required]
         public string OrderStatus { get; set; }
@@ -85,7 +81,7 @@ namespace GetFood_API.Classes
         public decimal OverallFee { get; set; }
  
         [Required]
-        public TimeSpan DeliveryTime { get; set; }
+        public DateTime DeliveryTime { get; set; }
 
         [Required]
         [MaxLength(70)]
@@ -128,7 +124,7 @@ namespace GetFood_API.Classes
         public decimal Price { get; set; }
 
         [Required]
-        public TimeSpan PrepTime { get; set; }
+        public DateTime PrepTime { get; set; }
 
         [ForeignKey("Restaurant")]
         public int RestaurantId { get; set; }

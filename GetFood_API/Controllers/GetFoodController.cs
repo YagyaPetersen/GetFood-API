@@ -32,28 +32,41 @@ namespace GetFood_API.Controllers
             FoodOrder foodOrders = new FoodOrder();
 
 //==============Food=========================================================
-            var allFoods = GetFoodContext.Foods.Include(a => a.Restaurant).Where(a => a.FoodId == orderInfo.FoodId).ToList().FirstOrDefault();
+            var allFoods = GetFoodContext.Foods
+                .Include(a => a.Restaurant)
+                .Where(a => a.FoodId == orderInfo.FoodId)
+                .ToList()
+                .FirstOrDefault();
+
             allFoods.FoodId = orderInfo.FoodId;
             foodOrders.FoodId = orderInfo.FoodId;
             foodOrders.Food = allFoods;
 
 //===============Order=======================================================
             Orders orders = new Orders();
-            var storedOrders = GetFoodContext.Order.Include(a => a.Customer).Where(a => a.OrderId == orderInfo.OrderId).ToList().FirstOrDefault();
+            var storedOrders = GetFoodContext.Order
+                .Include(a => a.Customer)
+                .Where(a => a.OrderId == orderInfo.OrderId)
+                .ToList()
+                .FirstOrDefault();
+
             orders.OrderId = orderInfo.OrderId;
             foodOrders.Orders = orders;
             foodOrders.OrderId = orders.OrderId;
 
 //==============Customer======================================================
-            var allCustomers = GetFoodContext.Customers.Where(a => a.CustomerId == orderInfo.Orders.CustomerId).ToList().FirstOrDefault();
+            var allCustomers = GetFoodContext.Customers
+                .Where(a => a.CustomerId == orderInfo.Orders.CustomerId)
+                .ToList()
+                .FirstOrDefault();
+
             orders.CustomerId = allCustomers.CustomerId;
             orders.CustomerAddress = orderInfo.Orders.CustomerAddress;
             orders.Customer = allCustomers;
 
 //==============Order Properties==============================================
-            foodOrders.Orders.DriverAcceptance = orderInfo.Orders.DriverAcceptance;
             foodOrders.Orders.RestaurantAcceptance = orderInfo.Orders.RestaurantAcceptance;
-            foodOrders.Orders.OverallFee = allFoods.Price + foodOrders.Orders.DeliveryFee;
+            foodOrders.Orders.DriverAcceptance = orderInfo.Orders.DriverAcceptance;
 
             if (orders.RestaurantAcceptance == false || orders.DriverAcceptance == false)
             {
@@ -63,8 +76,18 @@ namespace GetFood_API.Controllers
             {
                 foodOrders.Orders.OrderStatus = "Order Confirmed";
             }
+            foodOrders.Orders.OverallFee = allFoods.Price + foodOrders.Orders.DeliveryFee;
+            foodOrders.Orders.PickupTime = allFoods.PrepTime;
+            foodOrders.Orders.DeliveryTime = orderInfo.Orders.DeliveryTime.AddMinutes(25);
 
+//==============Driver=========================================================
             var drivers = GetFoodContext.Drivers
+                .Where(a => a.DriverId == orderInfo.Orders.DriverId)
+                .ToList()
+                .FirstOrDefault();
+
+            orders.DriverId = drivers.DriverId;
+            orders.Driver = drivers;
 
 //==============Saving=========================================================
             GetFoodContext.FoodOrders.Add(foodOrders);

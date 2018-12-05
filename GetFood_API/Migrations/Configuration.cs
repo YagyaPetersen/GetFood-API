@@ -27,25 +27,25 @@ namespace GetFood_API.Migrations
 
             context.Foods.AddOrUpdate(
                 a => a.FoodId,
-                new Food() { FoodId = 1, FoodName = "BigMac", Description = "The one, the only! Enjoy a succulent 100% beef patty, cheese, onion, and crisp lettuce in a sesame seed bun.", RestaurantId = 1, Price = 40, PrepTime = new TimeSpan(00, 25, 00) },
-                new Food() { FoodId = 2, FoodName = "McChicken", Description = "A tender chicken breast coated in a delicious, seasoned batter, and perfectly cooked for your satisfaction", RestaurantId = 1, Price = 35, PrepTime = new TimeSpan(00, 25, 00) },
-                new Food() { FoodId = 3, FoodName = "4pc McNuggets", Description = "4 piece melt-in-your-mouth tender chicken breast nuggets coated and cooked in a delicious, seasoned batter.", RestaurantId = 1, Price = 30, PrepTime = new TimeSpan(00, 20, 00) },
+                new Food() { FoodId = 1, FoodName = "BigMac", Description = "The one, the only! Enjoy a succulent 100% beef patty, cheese, onion, and crisp lettuce in a sesame seed bun.", RestaurantId = 1, Price = 40, PrepTime = new DateTime(00,00,00,00, 25, 00) },
+                new Food() { FoodId = 2, FoodName = "McChicken", Description = "A tender chicken breast coated in a delicious, seasoned batter, and perfectly cooked for your satisfaction", RestaurantId = 1, Price = 35, PrepTime = new DateTime(00, 00, 00, 00, 25, 00) },
+                new Food() { FoodId = 3, FoodName = "4pc McNuggets", Description = "4 piece melt-in-your-mouth tender chicken breast nuggets coated and cooked in a delicious, seasoned batter.", RestaurantId = 1, Price = 30, PrepTime = new DateTime(00, 00, 00, 00, 20, 00) },
 
-                new Food() { FoodId = 4, FoodName = "StreetWise 2", Description = "2 Pieces of chicken cooked to golden perfection and a small portion of chips.", RestaurantId = 2, Price = 30, PrepTime = new TimeSpan(00, 15, 00) },
-                new Food() { FoodId = 5, FoodName = "Zinger Burger", Description = "A spicy Zinger fillet topped with fresh lettuce a slice of tomato and Colonel dressing served on a fresh bun.", RestaurantId = 2, Price = 40, PrepTime = new TimeSpan(00, 30, 00) },
-                new Food() { FoodId = 6, FoodName = "Dunked Wings", Description = "4 KFC famous Zinger Wings dunked in a delicious honey ginger and soy sauce.", RestaurantId = 2, Price = 30, PrepTime = new TimeSpan(00, 15, 00) },
+                new Food() { FoodId = 4, FoodName = "StreetWise 2", Description = "2 Pieces of chicken cooked to golden perfection and a small portion of chips.", RestaurantId = 2, Price = 30, PrepTime = new DateTime(00, 15, 00) },
+                new Food() { FoodId = 5, FoodName = "Zinger Burger", Description = "A spicy Zinger fillet topped with fresh lettuce a slice of tomato and Colonel dressing served on a fresh bun.", RestaurantId = 2, Price = 40, PrepTime = new DateTime(00, 00, 00, 00, 30, 00) },
+                new Food() { FoodId = 6, FoodName = "Dunked Wings", Description = "4 KFC famous Zinger Wings dunked in a delicious honey ginger and soy sauce.", RestaurantId = 2, Price = 30, PrepTime = new DateTime(00, 00, 00, 00, 15, 00) },
 
-                new Food() { FoodId = 7, FoodName = "1/4 Chicken Meal", Description = "1/4 Chicken, single side and soft drink can", RestaurantId = 3, Price = 70, PrepTime = new TimeSpan(00, 35, 00) },
-                new Food() { FoodId = 8, FoodName = "HotPot", Description = "Pulled Chicken, Nando's spicy rice, veggies and tomato relish", RestaurantId = 3, Price = 37, PrepTime = new TimeSpan(00, 20, 00) },
-                new Food() { FoodId = 9, FoodName = "Chicken Wrap", Description = "Chicken Wrap with a single portion side of your choice", RestaurantId = 3, Price = 45, PrepTime = new TimeSpan(00, 30, 00) },
+                new Food() { FoodId = 7, FoodName = "1/4 Chicken Meal", Description = "1/4 Chicken, single side and soft drink can", RestaurantId = 3, Price = 70, PrepTime = new DateTime(00, 00, 00, 00, 35, 00) },
+                new Food() { FoodId = 8, FoodName = "HotPot", Description = "Pulled Chicken, Nando's spicy rice, veggies and tomato relish", RestaurantId = 3, Price = 37, PrepTime = new DateTime(00, 00, 00, 00, 20, 00) },
+                new Food() { FoodId = 9, FoodName = "Chicken Wrap", Description = "Chicken Wrap with a single portion side of your choice", RestaurantId = 3, Price = 45, PrepTime = new DateTime(00, 00, 00, 00, 30, 00) },
 
-                new Food() { FoodId = 10, FoodName = "King Steer Burger", Description = "3 beef patties & 3 slices of cheese ,reg chips & sugar free buddy", RestaurantId = 4, Price = 90, PrepTime = new TimeSpan(00, 40, 00) },
-                new Food() { FoodId = 11, FoodName = "1/4 Chicken", Description = "1/4 Chicken, bun and sugar free can", RestaurantId = 4, Price = 53, PrepTime = new TimeSpan(00, 30, 00) },
-                new Food() { FoodId = 12, FoodName = "BratPack", Description = "Snack Beefburger, reg chips & ceres 200ml", RestaurantId = 4, Price = 51, PrepTime = new TimeSpan(00, 25, 00) },
+                new Food() { FoodId = 10, FoodName = "King Steer Burger", Description = "3 beef patties & 3 slices of cheese ,reg chips & sugar free buddy", RestaurantId = 4, Price = 90, PrepTime = new DateTime(00, 00, 00, 00, 40, 00) },
+                new Food() { FoodId = 11, FoodName = "1/4 Chicken", Description = "1/4 Chicken, bun and sugar free can", RestaurantId = 4, Price = 53, PrepTime = new DateTime(00, 00, 00, 00, 30, 00) },
+                new Food() { FoodId = 12, FoodName = "BratPack", Description = "Snack Beefburger, reg chips & ceres 200ml", RestaurantId = 4, Price = 51, PrepTime = new DateTime(00, 00, 00, 00, 25, 00) },
 
-                new Food() { FoodId = 13, FoodName = "Chicken & Mushroom Pizza", Description = "Chicken, mushroom, tomato, onion, Debonairs sauce", RestaurantId = 4, Price = 100, PrepTime = new TimeSpan(00,30,00)},
-                new Food() { FoodId = 14, FoodName = "Something Meaty", Description = "Ham, pepperoni, bacon, ground beef, BBQ sauce", RestaurantId = 4, Price = 105, PrepTime = new TimeSpan(00,35,00)},
-                new Food() { FoodId = 15, FoodName = "Original Veggie", Description = "Mushroom, olives, pineapple, onion, tomato, spring onion", RestaurantId = 4, Price = 86, PrepTime = new TimeSpan(00,30,00)}
+                new Food() { FoodId = 13, FoodName = "Chicken & Mushroom Pizza", Description = "Chicken, mushroom, tomato, onion, Debonairs sauce", RestaurantId = 4, Price = 100, PrepTime = new DateTime(00, 00, 00, 00,30,00)},
+                new Food() { FoodId = 14, FoodName = "Something Meaty", Description = "Ham, pepperoni, bacon, ground beef, BBQ sauce", RestaurantId = 4, Price = 105, PrepTime = new DateTime(00, 00, 00, 00,35,00)},
+                new Food() { FoodId = 15, FoodName = "Original Veggie", Description = "Mushroom, olives, pineapple, onion, tomato, spring onion", RestaurantId = 4, Price = 86, PrepTime = new DateTime(00, 00, 00, 00,30,00)}
                 );
 
             context.Drivers.AddOrUpdate(
@@ -65,7 +65,7 @@ namespace GetFood_API.Migrations
 
             context.Order.AddOrUpdate(
                 a => a.OrderId,
-                new Orders() { OrderId = 1, CustomerId = 1, DriverId = 1, DriverAcceptance = true, RestaurantAcceptance = true, DeliveryTime = new TimeSpan(00, 25, 00), OrderStatus = "Not Collected Yet", DeliveryFee = 10, OverallFee = 50, PickupTime = new TimeSpan(00, 20, 00), CustomerAddress = "169 Upper Canterbury St, Gardens, Cape Town" }
+                new Orders() { OrderId = 1, CustomerId = 1, DriverId = 1, DriverAcceptance = true, RestaurantAcceptance = true, DeliveryTime = DateTime.Parse(), OrderStatus = "Not Collected Yet", DeliveryFee = 10, OverallFee = 50, PickupTime = new DateTime(00, 00, 00, 00, 20, 00), CustomerAddress = "169 Upper Canterbury St, Gardens, Cape Town" }
                 );
 
             context.FoodOrders.AddOrUpdate(
