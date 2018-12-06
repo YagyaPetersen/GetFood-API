@@ -1,11 +1,7 @@
-﻿using System;
-using GetFood_API.Classes;
+﻿using GetFood_API.Classes;
 using System.Data.Entity;
 using System.Linq;
-using System.Net.Configuration;
 using System.Web.Http;
-using System.Web.Mvc;
-using WebGrease.Css.Extensions;
 
 namespace GetFood_API.Controllers
 {
@@ -13,25 +9,14 @@ namespace GetFood_API.Controllers
     {
         GetFoodContext GetFoodContext = new GetFoodContext();
 
-        [System.Web.Http.Route("api/restaurant/{id}/food")]
-        [System.Web.Http.HttpGet]
-        public IHttpActionResult GetAll(int id)
-        {
-            var all = GetFoodContext.Foods.Include(a => a.Restaurant)
-                .Where(a => a.RestaurantId == id)
-                .ToList();
-
-            return Ok(all);
-        }
-
-
-        [System.Web.Http.Route("api/order")]
-        [System.Web.Http.HttpPost]
+        [Route("api/order")]
+        [HttpPost]
         public IHttpActionResult PostOrder([FromBody] FoodOrder orderInfo)
         {
             FoodOrder foodOrders = new FoodOrder();
 
 //==============Food=========================================================
+
             var allFoods = GetFoodContext.Foods
                 .Include(a => a.Restaurant)
                 .Where(a => a.FoodId == orderInfo.FoodId)
@@ -43,6 +28,7 @@ namespace GetFood_API.Controllers
             foodOrders.Food = allFoods;
 
 //===============Order=======================================================
+
             Orders orders = new Orders();
             var storedOrders = GetFoodContext.Order
                 .Include(a => a.Customer)
@@ -55,51 +41,105 @@ namespace GetFood_API.Controllers
             foodOrders.OrderId = orders.OrderId;
 
 //==============Customer======================================================
+
             var allCustomers = GetFoodContext.Customers
                 .Where(a => a.CustomerId == orderInfo.Orders.CustomerId)
+                .ToList()
+                .FirstOrDefault();
+
+            var allDrivers = GetFoodContext.Drivers
+                .Where(a => a.DriverId == orderInfo.Orders.DriverId)
                 .ToList()
                 .FirstOrDefault();
 
             orders.CustomerId = allCustomers.CustomerId;
             orders.CustomerAddress = orderInfo.Orders.CustomerAddress;
             orders.Customer = allCustomers;
+            orders.Driver = 
 
-//==============Order Properties==============================================
-            foodOrders.Orders.RestaurantAcceptance = orderInfo.Orders.RestaurantAcceptance;
-            foodOrders.Orders.DriverAcceptance = orderInfo.Orders.DriverAcceptance;
 
-            if (orders.RestaurantAcceptance == false || orders.DriverAcceptance == false)
+            foodOrders.Orders.PickupTime = orderInfo.Orders.PickupTime;
+            foodOrders.Orders.DeliveryTime = orderInfo.Orders.DeliveryTime;
+
+            if (orders.DriverAcceptance == false || orders.RestaurantAcceptance == false)
             {
-                foodOrders.Orders.OrderStatus = "Pending...";
+                orders.OrderStatus = "Pending...";
             }
             else
             {
-                foodOrders.Orders.OrderStatus = "Order Confirmed";
+                orders.OrderStatus = "Order Confirmed";
             }
-            foodOrders.Orders.OverallFee = allFoods.Price + foodOrders.Orders.DeliveryFee;
-            foodOrders.Orders.PickupTime = allFoods.PrepTime;
-            foodOrders.Orders.DeliveryTime = orderInfo.Orders.DeliveryTime.AddMinutes(25);
 
-//==============Driver=========================================================
-            var drivers = GetFoodContext.Drivers
-                .Where(a => a.DriverId == orderInfo.Orders.DriverId)
-                .ToList()
-                .FirstOrDefault();
+            orders.OverallFee = foodOrders.Food.Price;
+            //==============Saving=========================================================
 
-            orders.DriverId = drivers.DriverId;
-            orders.Driver = drivers;
-
-//==============Saving=========================================================
             GetFoodContext.FoodOrders.Add(foodOrders);
-            //GetFoodContext.SaveChanges();
+           // GetFoodContext.SaveChanges();
             return Json(foodOrders);
         }
+//=============================================================================
 
+        
+        [Route("api/foodOrder/{id}")]
+        [HttpPatch]
+        public IHttpActionResult PatchAcceptance(int id, [FromBody]OrderRequest request)
+        {
+            var orders = GetFoodContext.FoodOrders
+                .Include(a => a.Orders)
+                .Include(a=>a.Food)
+                .Include(a=>a.Orders.Customer)
+                .Include(a=>a.Orders.Driver)
+                .Include(a=>a.Food.Restaurant)
+               // .Where(a => a.FoodOrderId == id)
+                .FirstOrDefault(a => a.FoodOrderId == id);
 
+            orders.Orders.RestaurantAcceptance = request.RAccept;
+            orders.Orders.DriverAcceptance = request.DAccept;
+              
+            if (request.DAccept == false || request.RAccept == false)
+            {
+                orders.Orders.OrderStatus = "Pending...";
+            }
+            //else if (request.DAccept == true)
+            //{
+            //    orders.Orders.OrderStatus = "Restaurant Pending...";
+            //    var drivers = GetFoodContext.Drivers
+            //        .Where(a => a.DriverId == orders.Orders.DriverId)
+            //        .ToList()
+            //        .FirstOrDefault();
+            //    orders.Orders.DeliveryFee = request.details.Orders.DeliveryFee;
+            //    orders.Orders.DriverId = drivers.DriverId;
+            //    orders.Orders.Driver = drivers;
+            //    orders.Orders.OverallFee = orders.Food.Price + orders.Orders.DeliveryFee;
+            //}
+            //else if (request.RAccept == true)
+            //{
+            //    orders.Orders.OrderStatus = "Driver Pending...";
+            //    orders.Orders.OverallFee = orders.Food.Price + orders.Orders.DeliveryFee;
+            //    orders.Orders.PickupTime = orders.Food.PrepTime;
+            //}
+            else
+            {
+                orders.Orders.OrderStatus = "Order Confirmed";
+                var drivers = GetFoodContext.Drivers
+                    .Where(a => a.DriverId == orders.Orders.DriverId)
+                    .ToList()
+                    .FirstOrDefault();
 
+                orders.Orders.DeliveryFee = request.details.Orders.DeliveryFee;
+                orders.Orders.DriverId = drivers.DriverId;
+                orders.Orders.Driver = drivers;
+                orders.Orders.OverallFee = orders.Food.Price + orders.Orders.DeliveryFee;
 
-        [System.Web.Http.Route("api/deleteOrder/{id}")]
-        [System.Web.Http.HttpDelete]
+                orders.Orders.OverallFee = orders.Food.Price + orders.Orders.DeliveryFee;
+                orders.Orders.PickupTime = orders.Food.PrepTime;
+            }
+
+            return Ok(orders);
+        }
+
+        [Route("api/deleteOrder/{id}")]
+        [HttpDelete]
         public IHttpActionResult DeleteOrder(int id)
         {
             var all = GetFoodContext.FoodOrders

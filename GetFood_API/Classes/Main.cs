@@ -132,4 +132,11 @@ namespace GetFood_API.Classes
 
        // public virtual Orders Orders { get; set; }
     }
+
+    public class OrderRequest
+    {
+        public bool RAccept { get; set; }
+        public bool DAccept { get; set; }
+        public FoodOrder details { get; set; }
+    }
 }

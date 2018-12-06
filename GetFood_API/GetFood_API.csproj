@@ -200,10 +200,6 @@
     <Compile Include="Migrations\201811301251534_Temp.Designer.cs">
       <DependentUpon>201811301251534_Temp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812051447529_Migrate.cs" />
-    <Compile Include="Migrations\201812051447529_Migrate.Designer.cs">
-      <DependentUpon>201812051447529_Migrate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Response\CustomerDto.cs" />
     <Compile Include="Models\Response\GetFoodResponse.cs" />
@@ -298,9 +294,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811301251534_Temp.resx">
       <DependentUpon>201811301251534_Temp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812051447529_Migrate.resx">
-      <DependentUpon>201812051447529_Migrate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
