@@ -59,8 +59,8 @@ namespace GetFood_API.Classes
         public Customer Customer { get; set; }
 
         [ForeignKey("Driver")]
-        public int DriverId { get; set; }
-        public Driver Driver { get; set; }
+        public int? DriverId { get; set; }
+        public virtual Driver Driver { get; set; }
 
         [Required]
         public bool DriverAcceptance { get; set; }
@@ -74,7 +74,6 @@ namespace GetFood_API.Classes
         [Required]
         public string OrderStatus { get; set; }
 
-        [Required]
         public decimal DeliveryFee { get; set; }
 
         [Required]
@@ -135,8 +134,11 @@ namespace GetFood_API.Classes
 
     public class OrderRequest
     {
-        public bool RAccept { get; set; }
-        public bool DAccept { get; set; }
+        public int RequestId { get; set; }
+        public bool RestaurantAcceptance { get; set; }
+        public bool DriverAcceptance { get; set; }
+        public int DriverId { get; set; }
         public FoodOrder details { get; set; }
+        public int DeliveryFee { get; set; }
     }
 }
