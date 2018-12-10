@@ -108,9 +108,6 @@ namespace GetFood_API.Classes
         [Key]
         public int FoodId { get; set; }
 
-        //[ForeignKey("Orders")]
-        //public int OrderId { get; set; }
-        
         [Required]
         [MaxLength(25)]
         public string FoodName { get; set; }
@@ -129,7 +126,6 @@ namespace GetFood_API.Classes
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
 
-       // public virtual Orders Orders { get; set; }
     }
 
     public class OrderRequest

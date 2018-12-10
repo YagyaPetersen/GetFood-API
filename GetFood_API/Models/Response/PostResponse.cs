@@ -8,6 +8,8 @@ namespace GetFood_API.Models.Response
 {
     public class PostResponse
     {
+        private List<FoodOrder> post;
+
         public string CustomerFName { get; set; }
         public string CustomerLName { get; set; }
         public string DriverFName { get; set; }
@@ -25,24 +27,24 @@ namespace GetFood_API.Models.Response
         public decimal Price { get; set; }
         public DateTime PrepTime { get; set; }
 
-        public PostResponse(string a, string b, string c, string d, DateTime e, string f, decimal g, decimal h, DateTime i, string j, string k, string l, string m, string n, decimal o, DateTime p)
+        public PostResponse(List<FoodOrder> post/*string a, string b, string c, string d, DateTime e, string f, decimal g, decimal h, DateTime i, string j, string k, string l, string m, string n, decimal o, DateTime p*/)
         {
-            CustomerFName = a;//post.FirstOrDefault().Orders.Customer.FirstName;
-            CustomerLName = b;//post.FirstOrDefault().Orders.Customer.LastName;
-            DriverFName = c;//post.FirstOrDefault().Orders.Driver.FirstName;
-            DriverLName = d; //post.FirstOrDefault().Orders.Driver.FirstName;
-            PickUpTime = e;//post.FirstOrDefault().Orders.PickupTime;
-            OrderStatus = f;//post.FirstOrDefault().Orders.OrderStatus;
-            DeliveryFee = g;//post.FirstOrDefault().Orders.DeliveryFee;
-            OverallFee = h;//post.FirstOrDefault().Orders.OverallFee;
-            DeliveryTime = i;//post.FirstOrDefault().Orders.DeliveryTime;
-            Address = j;//post.FirstOrDefault().Orders.CustomerAddress;
-            Restaurant = k;//post.FirstOrDefault().Food.Restaurant.RestaurantName;
-            RestaurantAddress = l;//post.FirstOrDefault().Food.Restaurant.Address;
-            Food = m;//post.FirstOrDefault().Food.FoodName;
-            Description = n;//post.FirstOrDefault().Food.Description;
-            Price = o;//post.FirstOrDefault().Food.Price;
-            PrepTime = p; //post.FirstOrDefault().Food.PrepTime;
+            CustomerFName = post.FirstOrDefault().Orders.Customer.FirstName;
+            CustomerLName = post.FirstOrDefault().Orders.Customer.LastName;
+            DriverFName = post.FirstOrDefault().Orders.Driver.FirstName;
+            DriverLName =  post.FirstOrDefault().Orders.Driver.FirstName;
+            PickUpTime = post.FirstOrDefault().Orders.PickupTime;
+            OrderStatus = post.FirstOrDefault().Orders.OrderStatus;
+            DeliveryFee = post.FirstOrDefault().Orders.DeliveryFee;
+            OverallFee = post.FirstOrDefault().Orders.OverallFee;
+            DeliveryTime = post.FirstOrDefault().Orders.DeliveryTime;
+            Address = post.FirstOrDefault().Orders.CustomerAddress;
+            Restaurant = post.FirstOrDefault().Food.Restaurant.RestaurantName;
+            RestaurantAddress = post.FirstOrDefault().Food.Restaurant.Address;
+            Food =post.FirstOrDefault().Food.FoodName;
+            Description = post.FirstOrDefault().Food.Description;
+            Price = post.FirstOrDefault().Food.Price;
+            PrepTime = post.FirstOrDefault().Food.PrepTime;
         }
     }
 }

@@ -87,9 +87,9 @@ namespace GetFood_API.Controllers
 //==============Saving=========================================================
 
             GetFoodContext.FoodOrders.Add(foodOrders);
-            //GetFoodContext.SaveChanges();
+            GetFoodContext.SaveChanges();
 
-            var PostResponse = new PostResponse(foodOrders.Orders.Customer.FirstName, foodOrders.Orders.Customer.LastName, foodOrders.Orders.Driver.FirstName, foodOrders.Orders.Driver.LastName, foodOrders.Orders.PickupTime, foodOrders.Orders.OrderStatus, foodOrders.Orders.DeliveryFee, foodOrders.Orders.OverallFee, foodOrders.Orders.DeliveryTime, foodOrders.Orders.CustomerAddress, foodOrders.Food.Restaurant.RestaurantName, foodOrders.Food.Restaurant.Address, foodOrders.Food.FoodName, foodOrders.Food.Description, foodOrders.Food.Price, foodOrders.Food.PrepTime);
+                //var PostResponse = new PostResponse(foodOrders.Orders.Customer.FirstName, foodOrders.Orders.Customer.LastName, foodOrders.Orders.Driver.FirstName, foodOrders.Orders.Driver.LastName, foodOrders.Orders.PickupTime, foodOrders.Orders.OrderStatus, foodOrders.Orders.DeliveryFee, foodOrders.Orders.OverallFee, foodOrders.Orders.DeliveryTime, foodOrders.Orders.CustomerAddress, foodOrders.Food.Restaurant.RestaurantName, foodOrders.Food.Restaurant.Address, foodOrders.Food.FoodName, foodOrders.Food.Description, foodOrders.Food.Price, foodOrders.Food.PrepTime);
 
             return Json(foodOrders);
         }
