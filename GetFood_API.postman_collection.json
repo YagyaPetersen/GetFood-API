@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "17e6fcfc-4b9c-4f7c-aecb-58cdc81bd5a6",
+		"name": "GetFood_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PostOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"OrderId\":1,\n\t\"Orders\":{\n\t\t\"DriverId\": 1,\n\t\t\"CustomerId\": 4,\n\t\t\"CustomerAddress\": \"Grove Street\"\n\t},\n\t\"FoodId\":1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:62903/api/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "62903",
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteOrder",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:62903/api/deleteCustomer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "62903",
+					"path": [
+						"api",
+						"deleteCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutOrder",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:62903/api/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "62903",
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRestuarant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}

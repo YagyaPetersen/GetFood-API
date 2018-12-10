@@ -1,0 +1,327 @@
+======================
+GET ALL Customers
+======================
+
+URL: http: //www.GetFood.com/api/customer (GET)
+
+Request: [empty]
+
+Response: {
+	"Responses": [
+		{
+			"CustomerId": "1",
+			"FirstName": "Clayton",
+			"LastName": "Horner"
+		},
+		{
+			"CustomerId": "2",
+			"FirstName": "Ashton",
+			"LastName": "Fleming"
+		},
+		{
+			"CustomerId": "3",
+			"FirstName": "Bentley",
+			"LastName": "Healy"
+		},
+		{
+			"CustomerId": "4",
+			"FirstName": "Sonnie",
+			"LastName": "Hartley"
+		}
+	]
+}
+
+======================
+GET Customer info
+======================
+
+URL: http: //www.GetFood.com/api/customer/{id} (GET)
+
+Request: [1]
+
+Response: {
+	"CustomerId": "1",
+	"FirstName": "Owen",
+	"LastName": "Wilson"
+}
+
+================================================================================================================================================================================================================================================================================================================================================================
+======================
+GET ALL Drivers
+======================
+
+URL: http: //www.GetFood.com/api/driver (GET)
+
+Request: [empty]
+
+Response: {
+	"Responses": [
+		{
+			"DriverId": "1",
+			"FirstName": "John",
+			"LastName": "Gordon"
+		},
+		{
+			"DriverId": "2",
+			"FirstName": "Casper",
+			"LastName": "Irwin"
+		},
+		{
+			"DriverId": "3",
+			"FirstName": "Tyrone",
+			"LastName": "Simon"
+		}
+	]
+}
+
+======================
+GET Driver info
+======================
+
+URL: http: //www.GetFood.com/api/driver/{id} (GET)
+
+Request: [1]
+
+Response: {
+	"DriverId": "1",
+	"FirstName": "John",
+	"LastName": "Gordon"
+}
+
+============================================================================================================================================================================================================================
+======================
+GET ALL Restaurants
+======================
+
+URL: http: //www.GetFood.com/api/restaurant (GET)
+
+Request: [empty]
+
+Response: {
+	"Responses": [
+		{
+			"RestaurantId": "1",
+			"RestaurantName": "McDonald's",
+			"Address": "Cnr Kloof & Orange Streets, Gardens, Cape Town"
+		},
+		{
+			"RestaurantId": "2",
+			"RestaurantName": "KFC",
+			"Address": "Mill Street, Corner Buitekant Street, Gardens, Cape Town"
+		},
+		{
+			"RestaurantId": "3",
+			"RestaurantName": "Nandos",
+			"Address": "Adderley St, Shop 6V, Grand Parade Centre, Cape Town City Centre, Cape Town"
+		},
+		{
+			"RestaurantId": "4",
+			"RestaurantName": "Steers",
+			"Address": "Shop 90 Concourse Level, Adderley Street, Golden Acre, Cape Town"
+		}
+	]
+}
+
+======================
+GET Restaurant info
+======================
+
+URL: http: //www.GetFood.com/api/restaurant/{id} (GET)
+
+Request: [1]
+
+Response: {
+	"RestaurantId": "1",
+	"RestaurantName": "McDonald's",
+	"Address": "Cnr Kloof & Orange Streets, Gardens, Cape Town"
+}
+
+========================================================================================================================================================================================================================================================================================================================================
+======================
+GET All Food info
+======================
+
+URL: http: //www.GetFood.com/api/restaurant/{id}/food (GET)
+
+Request: [empty]
+
+Response: {
+	"Responses": [
+		{ 
+ 			"FoodId" : 1,
+ 			"FoodName" : "BigMac",
+ 			"Description" : "The one, the only! Enjoy a succulent 100% beef patty, cheese, onion, and crisp lettuce in a sesame seed bun.",
+ 			"RestaurantId" : 1,
+ 			"Price" : 40,
+ 			"PrepTime" : 25min 
+		},
+		{ 
+ 			"FoodId" : 2,
+ 			"FoodName" : "McChicken",
+ 			"Description" : "A tender chicken breast coated in a delicious, seasoned batter, and perfectly cooked for your satisfaction.",
+ 			"RestaurantId" : 1,
+ 			"Price" : 35,
+ 			"PrepTime" : 25min 
+		},
+		{ 
+ 			"FoodId" : 3,
+ 			"FoodName" : "4pc McNuggets",
+ 			"Description" : "4 piece melt-in-your-mouth tender chicken breast nuggets coated and cooked in a delicious, seasoned batter.",
+ 			"RestaurantId" : 1,
+ 			"Price" : 30,
+ 			"PrepTime" : 20min 
+		},
+	]
+}
+========================================================================================================================================================================================================================================================================================================================================
+======================
+POST Order info
+======================
+
+URL: http://www.GetFood.com/api/order (POST)
+
+Request:{
+	"CustomerId": 1,
+	"DriverId": null,
+	"FoodId": 1,
+	"DriverAcceptance": null,
+	"RestaurantAcceptance": null,
+	"DeliveryTime : null,
+	"OrderStatus" : "Pending...",
+	"DeliveryFee" : null,
+	"OverallFee" : null,
+	"PickupTime" : null,
+	"CustomerAddress" : "169 Upper Canterbury St, Gardens, Cape Town"
+	}
+
+Response:{
+	"id"= 1,
+	"DriverId": null,
+	"FoodId": 1,
+	"DriverAcceptance": null,
+	"RestaurantAcceptance": null,
+	"DeliveryTime : null,
+	"OrderStatus" : "Pending...",
+	"DeliveryFee" : null,
+	"OverallFee" : null,
+	"PickupTime" : null,
+	"CustomerAddress" : "169 Upper Canterbury St, Gardens, Cape Town"
+}
+
+======================
+PUT Order info
+======================
+
+URL: http://www.GetFood.com/api/order/{id} (PUT)
+
+Request:{
+	"id"= 1,
+	"DriverId": 1,
+	"FoodId": 1,
+	"DriverAcceptance": Accepted(true),
+	"RestaurantAcceptance": Accepted(true),
+	"PickupTime" : 20min,
+	"OrderStatus" : "Not Collected Yet",
+	"DeliveryFee" : 10,
+	"OverallFee" : 50,
+	"DeliveryTime : 25min,
+	"CustomerAddress" : "169 Upper Canterbury St, Gardens, Cape Town"
+}
+
+Response:{
+	"id"= 1,
+	"DriverId": 1,
+	"FoodId": 1,
+	"DriverAcceptance": Accepted(true),
+	"RestaurantAcceptance": Accepted(true),
+	"PickupTime" : 20min,
+	"OrderStatus" : "Not Collected Yet",
+	"DeliveryFee" : 10,
+	"OverallFee" : 50,
+	"DeliveryTime : 25min,
+	"CustomerAddress" : "169 Upper Canterbury St, Gardens, Cape Town"
+}
+
+======================
+GET Order info
+======================
+
+URL: http://www.GetFood.com/api/order/{id} (GET)
+
+Request:[1]
+
+Response:{
+	"id"= 1,
+	"DriverId": 1,
+	"FoodId": 1,
+	"DriverAcceptance": Accepted(true),
+	"RestaurantAcceptance": Accepted(true),
+	"PickupTime" : 20min,
+	"OrderStatus" : "Not Collected Yet",
+	"DeliveryFee" : 10,
+	"OverallFee" : 50,
+	"DeliveryTime : 25min,
+	"CustomerAddress" : "169 Upper Canterbury St, Gardens, Cape Town"
+}
+
+========================================================================================================================================================================================================================================================================================================================================
+======================
+POST FoodOrder info
+======================
+
+URL: http://www.GetFood.com/foodOrder (GET)
+
+Request:{
+	"OrderId": 1,
+	"FoodId": 1
+}
+
+Response:{
+	"id": 1,
+	"OrderId": 1,
+	"FoodId": 1
+}
+
+======================
+GET FoodOrder info
+======================
+
+URL: http://www.GetFood.com/api/foodOrder/{id} (GET)
+
+Request:[1]
+
+Response:{
+	"id": 1,
+	"OrderId": 1,
+	"FoodId": 1
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
