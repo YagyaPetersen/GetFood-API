@@ -57,5 +57,28 @@ namespace GetFood_API.Controllers
 
             return Json(GetFoodContext.Order);
         }
+
+        [Route("api/Cart")]
+        [HttpPost]
+        public IHttpActionResult OrderFood([FromBody]FoodOrder data)
+        {
+            FoodOrder foodOrder = new FoodOrder();
+
+            var orders = GetFoodContext.Order
+                .ToList()
+                .FirstOrDefault();
+
+            var food = GetFoodContext.Foods
+                .ToList()
+                .FirstOrDefault();
+
+            foodOrder.OrderId = data.OrderId;
+            foodOrder.Orders = orders;
+
+            foodOrder.FoodId = data.FoodId;
+            foodOrder.Food = food;
+
+            return Json(foodOrder);
+        }
     }
 }
