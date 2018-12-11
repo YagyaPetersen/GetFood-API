@@ -39,6 +39,7 @@ namespace GetFood_API.Classes
     public class Restaurant
     {
         [Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RestaurantId { get; set; }
 
         [Required]
@@ -48,6 +49,9 @@ namespace GetFood_API.Classes
         [Required]
         [MaxLength(100)]
         public string Address { get; set; }
+
+       // public virtual Food Food { get; set; }
+
     }
     public class Orders
     {
@@ -61,6 +65,10 @@ namespace GetFood_API.Classes
         [ForeignKey("Driver")]
         public int? DriverId { get; set; }
         public virtual Driver Driver { get; set; }
+
+        [ForeignKey("Restaurant")]
+        public int? RestaurantId { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
 
         [Required]
         public bool DriverAcceptance { get; set; }
@@ -122,9 +130,11 @@ namespace GetFood_API.Classes
         [Required]
         public DateTime PrepTime { get; set; }
 
+        //public  virtual  ICollection<Food> Restaurants { get; set; }
+
         [ForeignKey("Restaurant")]
-        public int RestaurantId { get; set; }
-        public Restaurant Restaurant { get; set; }
+        public int? RestaurantId { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
 
     }
 
@@ -134,7 +144,8 @@ namespace GetFood_API.Classes
         public bool RestaurantAcceptance { get; set; }
         public bool DriverAcceptance { get; set; }
         public int DriverId { get; set; }
-        public FoodOrder details { get; set; }
         public int DeliveryFee { get; set; }
+        public DateTime PickupTime { get; set; }
+        public DateTime DeliveryTime { get; set; }
     }
 }

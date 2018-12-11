@@ -1,3 +1,4 @@
+using System.Data.Entity.Migrations.Infrastructure;
 using GetFood_API.Classes;
 
 namespace GetFood_API.Migrations
@@ -65,7 +66,8 @@ namespace GetFood_API.Migrations
 
             context.Order.AddOrUpdate(
                 a => a.OrderId,
-                new Orders() { OrderId = 1, CustomerId = 1, DriverId = 1, DriverAcceptance = true, RestaurantAcceptance = true, DeliveryTime = DateTime.Parse("00:25:00"), OrderStatus = "Not Collected Yet", DeliveryFee = 10, OverallFee = 50, PickupTime = DateTime.Parse("00:25:00"), CustomerAddress = "169 Upper Canterbury St, Gardens, Cape Town" }
+                new Orders() { OrderId = 1, CustomerId = 1, DriverId = 1, DriverAcceptance = true, RestaurantAcceptance = true, DeliveryTime = DateTime.Parse("00:25:00"), OrderStatus = "Not Collected Yet", DeliveryFee = 10, OverallFee = 50, PickupTime = DateTime.Parse("00:25:00"), CustomerAddress = "169 Upper Canterbury St, Gardens, Cape Town" },
+                new Orders() { OrderId = 2, CustomerId = 2, DriverId = null, DriverAcceptance = false,  RestaurantAcceptance = false, DeliveryTime = DateTime.Parse("00:00:00"), OrderStatus = "Pending...", DeliveryFee = 15, OverallFee = 55, PickupTime = DateTime.Parse("00:00:00"), CustomerAddress = "Grove Street", RestaurantId = 2}
                 );
             context.FoodOrders.AddOrUpdate(
                 a=>a.FoodOrderId,

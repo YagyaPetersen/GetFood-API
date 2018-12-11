@@ -191,6 +191,8 @@
     <Compile Include="Classes\Main.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\GetFoodController.cs" />
+    <Compile Include="Controllers\PatchController.cs" />
+    <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
     <Compile Include="GetFoodContext.cs" />
     <Compile Include="Global.asax.cs">
