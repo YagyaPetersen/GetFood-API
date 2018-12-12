@@ -23,7 +23,7 @@ namespace GetFood_API.Migrations
                 new Restaurant() { RestaurantId = 2, RestaurantName = "KFC", Address = "Mill Street, Corner Buitekant Street, Gardens, Cape Town" },
                 new Restaurant() { RestaurantId = 3, RestaurantName = "Nandos", Address = "Adderley St, Shop 6V, Grand Parade Centre, Cape Town City Centre, Cape Town" },
                 new Restaurant() { RestaurantId = 4, RestaurantName = "Steers", Address = "Shop 90 Concourse Level, Adderley Street, Golden Acre, Cape Town" },
-                new Restaurant() { RestaurantId = 4, RestaurantName = "Debonairs", Address = "Shop 2 London House, 128 Main Road, Sea Point, Cape Town" }
+                new Restaurant() { RestaurantId = 5, RestaurantName = "Debonairs", Address = "Shop 2 London House, 128 Main Road, Sea Point, Cape Town" }
                 );
 
             context.Foods.AddOrUpdate(
@@ -44,9 +44,9 @@ namespace GetFood_API.Migrations
                 new Food() { FoodId = 11, FoodName = "1/4 Chicken", Description = "1/4 Chicken, bun and sugar free can", RestaurantId = 4, Price = 53, PrepTime = DateTime.Parse("00:30:00") },
                 new Food() { FoodId = 12, FoodName = "BratPack", Description = "Snack Beefburger, reg chips & ceres 200ml", RestaurantId = 4, Price = 51, PrepTime = DateTime.Parse("00:20:00") },
 
-                new Food() { FoodId = 13, FoodName = "Chicken & Mushroom Pizza", Description = "Chicken, mushroom, tomato, onion, Debonairs sauce", RestaurantId = 4, Price = 100, PrepTime = DateTime.Parse("00:35:00") },
-                new Food() { FoodId = 14, FoodName = "Something Meaty", Description = "Ham, pepperoni, bacon, ground beef, BBQ sauce", RestaurantId = 4, Price = 105, PrepTime = DateTime.Parse("00:40:00") },
-                new Food() { FoodId = 15, FoodName = "Original Veggie", Description = "Mushroom, olives, pineapple, onion, tomato, spring onion", RestaurantId = 4, Price = 86, PrepTime = DateTime.Parse("00:30:00") }
+                new Food() { FoodId = 13, FoodName = "Chicken & Mushroom Pizza", Description = "Chicken, mushroom, tomato, onion, Debonairs sauce", RestaurantId = 5, Price = 100, PrepTime = DateTime.Parse("00:35:00") },
+                new Food() { FoodId = 14, FoodName = "Something Meaty", Description = "Ham, pepperoni, bacon, ground beef, BBQ sauce", RestaurantId = 5, Price = 105, PrepTime = DateTime.Parse("00:40:00") },
+                new Food() { FoodId = 15, FoodName = "Original Veggie", Description = "Mushroom, olives, pineapple, onion, tomato, spring onion", RestaurantId = 5, Price = 86, PrepTime = DateTime.Parse("00:30:00") }
                 );
 
             context.Drivers.AddOrUpdate(

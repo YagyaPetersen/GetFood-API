@@ -1,6 +1,10 @@
-﻿using GetFood_API.Classes;
+﻿using System;
+using System.Collections.Generic;
+using GetFood_API.Classes;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 
 namespace GetFood_API.Controllers
 {
@@ -38,9 +42,25 @@ namespace GetFood_API.Controllers
              GetFoodContext.Order.Add(newOrder);
             //GetFoodContext.SaveChanges();
 
-                //var PostResponse = new PostResponse(foodOrders.Orders.Customer.FirstName, foodOrders.Orders.Customer.LastName, foodOrders.Orders.Driver.FirstName, foodOrders.Orders.Driver.LastName, foodOrders.Orders.PickupTime, foodOrders.Orders.OrderStatus, foodOrders.Orders.DeliveryFee, foodOrders.Orders.OverallFee, foodOrders.Orders.DeliveryTime, foodOrders.Orders.CustomerAddress, foodOrders.Food.Restaurant.RestaurantName, foodOrders.Food.Restaurant.Address, foodOrders.Food.FoodName, foodOrders.Food.Description, foodOrders.Food.Price, foodOrders.Food.PrepTime);
-
             return Json(newOrder);
+        }
+
+        [Route("api/Cart")]
+        [HttpPost]
+        public IHttpActionResult OrderFood([FromBody]FoodOrder data)
+        {
+            FoodOrder foodOrder = new FoodOrder();
+            var orders = GetFoodContext.Order
+                .ToList()
+                .FirstOrDefault();
+            var food = GetFoodContext.Foods
+                .ToList()
+                .FirstOrDefault();
+            foodOrder.OrderId = data.OrderId;
+            foodOrder.Orders = orders;
+            foodOrder.FoodId = data.FoodId;
+            foodOrder.Food = food;
+            return Json(foodOrder);
         }
 
         [Route("api/deleteOrder/{id}")]
@@ -56,6 +76,32 @@ namespace GetFood_API.Controllers
             GetFoodContext.SaveChanges();
 
             return Json(GetFoodContext.Order);
+        }
+
+        [Route("api/test")]
+        [HttpGet]
+        public IHttpActionResult GetCart()
+        {
+            //id = 1;
+            //var food = GetFoodContext.Order.ToList().FirstOrDefault();
+            //Cart cart = new Cart();
+            //Orders food = new Orders();
+            int[] foods = new int[] {2,2};
+            //info.FoodId = [1,2];
+            //var we = GetFoodContext.Foods.ToList().FirstOrDefault(a => a.FoodId == foods[1]);
+            //cart.Foods = food;
+
+            foreach (int i in foods)
+            {
+                var qw = GetFoodContext.Foods.Where(a => i == a.FoodId).ToList();
+
+                return Json(qw);
+            }
+            // cart.Foods.Add(food);
+           
+             
+          
+            return Ok();
         }
     }
 }

@@ -70,6 +70,8 @@ namespace GetFood_API.Classes
         public int? RestaurantId { get; set; }
         public virtual Restaurant Restaurant { get; set; }
 
+        public ICollection<int> Foods { get; set; }
+
         [Required]
         public bool DriverAcceptance { get; set; }
 
@@ -93,8 +95,6 @@ namespace GetFood_API.Classes
         [Required]
         [MaxLength(70)]
         public string CustomerAddress { get; set; }
-
-         
     }
 
     public class FoodOrder
@@ -148,4 +148,10 @@ namespace GetFood_API.Classes
         public DateTime PickupTime { get; set; }
         public DateTime DeliveryTime { get; set; }
     }
+
+    //public class Cart
+    //{
+        
+        
+    //}
 }
