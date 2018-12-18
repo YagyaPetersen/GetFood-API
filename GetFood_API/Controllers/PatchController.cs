@@ -1,6 +1,9 @@
 ﻿using GetFood_API.Classes;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
+using WebGrease.Css.Extensions;
 
 namespace GetFood_API.Controllers
 {
@@ -29,7 +32,7 @@ namespace GetFood_API.Controllers
             }
 
             GetFoodContext.Order.Add(order);
-           // GetFoodContext.SaveChanges();
+            // GetFoodContext.SaveChanges();
 
             return Json(order);
         }
@@ -50,7 +53,7 @@ namespace GetFood_API.Controllers
             {
                 return NotFound();
             }
-            else if(order.RestaurantAcceptance == true)
+            else if (order.RestaurantAcceptance == true)
             {
                 order.DriverAcceptance = request.DriverAcceptance;
 
@@ -73,5 +76,59 @@ namespace GetFood_API.Controllers
 
             return Json(order);
         }
+
+        //Cart_________________________________________________________________________________________________________________
+        [Route("api/Cart")]
+        [HttpPatch]
+        public IHttpActionResult OrderFood([FromBody]FoodOrder data)
+        {
+            FoodOrder foodOrder = new FoodOrder();
+
+            int[] foods = data.Foods;
+            ICollection<object> foodStorage = new List<object>();
+
+            var currentOrder = GetFoodContext.Order.Where(a => a.OrderId == data.OrderId).ToList().FirstOrDefault();
+            foodOrder.Orders = currentOrder;
+
+            foreach (var i in foods)
+            {
+                var selectedFood = GetFoodContext.Foods.Where(a => a.FoodId == i).ToList().FirstOrDefault();
+                if (selectedFood.RestaurantId != currentOrder.RestaurantId)
+                {
+                    foodStorage.Add(selectedFood);
+
+                }
+                else
+                {
+                    return Json(foods);
+                }
+                
+            }
+
+            currentOrder.Foods = foodStorage;
+            
+            GetFoodContext.Order.Add(currentOrder);
+            //GetFoodContext.SaveChanges();
+            return Json(foodOrder);
+        }
+
+        [Route("api/FinaliseOrder")]
+        [HttpPatch]
+        public IHttpActionResult Finalize([FromBody]Orders orderInfo)
+        {
+            //foreach (var i in orderInfo.Foods)
+            //{
+            var fee = GetFoodContext.Order.Where(a => a.OrderId == orderInfo.OrderId).ToList().FirstOrDefault();
+
+            foreach (var i in fee.Foods)
+            {
+                var qwe = fee.Foods.Contains("Price");
+                return Json(qwe);
+            }
+
+            
+            return Json(fee);
+        }
+
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Web;
 
 namespace GetFood_API.Classes
 {
@@ -39,7 +37,6 @@ namespace GetFood_API.Classes
     public class Restaurant
     {
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RestaurantId { get; set; }
 
         [Required]
@@ -49,8 +46,6 @@ namespace GetFood_API.Classes
         [Required]
         [MaxLength(100)]
         public string Address { get; set; }
-
-       // public virtual Food Food { get; set; }
 
     }
     public class Orders
@@ -70,7 +65,7 @@ namespace GetFood_API.Classes
         public int? RestaurantId { get; set; }
         public virtual Restaurant Restaurant { get; set; }
 
-        public ICollection<int> Foods { get; set; }
+        public ICollection<object> Foods { get; set; }
 
         [Required]
         public bool DriverAcceptance { get; set; }
@@ -86,7 +81,6 @@ namespace GetFood_API.Classes
 
         public decimal DeliveryFee { get; set; }
 
-        [Required]
         public decimal OverallFee { get; set; }
  
         [Required]
@@ -107,8 +101,10 @@ namespace GetFood_API.Classes
         public Orders Orders { get; set; }
 
         [ForeignKey("Food")]
-        public int FoodId { get; set; }
+        public int[] Foods { get; set; }
+        [JsonIgnore]
         public Food Food { get; set; }
+ 
     }
 
     public class Food
@@ -130,8 +126,6 @@ namespace GetFood_API.Classes
         [Required]
         public DateTime PrepTime { get; set; }
 
-        //public  virtual  ICollection<Food> Restaurants { get; set; }
-
         [ForeignKey("Restaurant")]
         public int? RestaurantId { get; set; }
         public virtual Restaurant Restaurant { get; set; }
@@ -148,10 +142,4 @@ namespace GetFood_API.Classes
         public DateTime PickupTime { get; set; }
         public DateTime DeliveryTime { get; set; }
     }
-
-    //public class Cart
-    //{
-        
-        
-    //}
 }
