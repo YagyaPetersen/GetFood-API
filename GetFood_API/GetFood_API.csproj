@@ -203,7 +203,8 @@
       <DependentUpon>201811301251534_Temp.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Response\FinalResponse.cs" />
+    <Compile Include="Models\CartResponse.cs" />
+    <Compile Include="Models\NewOrderResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

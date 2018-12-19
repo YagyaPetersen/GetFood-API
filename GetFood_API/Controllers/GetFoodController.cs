@@ -1,14 +1,17 @@
 ﻿using GetFood_API.Classes;
-using System.Collections.Generic;
+using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
+using GetFood_API.Models;
 
 namespace GetFood_API.Controllers
 {
     public class GetFoodController : ApiController
     {
         GetFoodContext GetFoodContext = new GetFoodContext();
-//Order_________________________________________________________________________________________________________________
+
+        //Order_________________________________________________________________________________________________________________
         [Route("api/order")]
         [HttpPost]
         public IHttpActionResult PostOrder([FromBody] Orders orderInfo)
@@ -35,26 +38,30 @@ namespace GetFood_API.Controllers
             newOrder.RestaurantId = orderInfo.RestaurantId;
             newOrder.Restaurant = allRestaurants;
 
+            newOrder.PickupTime = DateTime.Parse("00:00:00");
+            newOrder.DeliveryTime = DateTime.Parse("00:00:00");
+
             GetFoodContext.Order.Add(newOrder);
             //GetFoodContext.SaveChanges();
 
-            return Json(newOrder);
+            var NewOrderResponse = new NewOrderResponse(newOrder);
+
+            return Json(NewOrderResponse);
         }
 
-//Delete_______________________________________________________________________________________________________________
-        [Route("api/deleteOrder/{id}")]
-        [HttpDelete]
-        public IHttpActionResult DeleteOrder(int id)
+        //GetOrder_____________________________________________________________________________________________________________
+        [Route("api/GetOrder/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetOrder(int id)
         {
             var all = GetFoodContext.Order
+                .Include(a => a.Foods)
+                .Include(a => a.Customer)
                 .Where(a => a.OrderId == id)
                 .ToList()
                 .FirstOrDefault();
 
-            GetFoodContext.Order.Remove(all);
-            GetFoodContext.SaveChanges();
-
-            return Json(GetFoodContext.Order);
+            return Json(all);
         }
     }
 }

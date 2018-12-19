@@ -52,7 +52,7 @@ namespace GetFood_API.Classes
     {
         [Key]
         public int OrderId { get; set; }
-        
+
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
@@ -65,25 +65,20 @@ namespace GetFood_API.Classes
         public int? RestaurantId { get; set; }
         public virtual Restaurant Restaurant { get; set; }
 
-        public ICollection<object> Foods { get; set; }
+        public ICollection<Food> Foods { get; set; }
 
-        [Required]
         public bool DriverAcceptance { get; set; }
 
-        [Required]
         public bool RestaurantAcceptance { get; set; }
 
-        [Required]
         public DateTime PickupTime { get; set; }
 
-        [Required]
         public string OrderStatus { get; set; }
 
         public decimal DeliveryFee { get; set; }
 
         public decimal OverallFee { get; set; }
- 
-        [Required]
+
         public DateTime DeliveryTime { get; set; }
 
         [Required]
@@ -102,9 +97,8 @@ namespace GetFood_API.Classes
 
         [ForeignKey("Food")]
         public int[] Foods { get; set; }
-        [JsonIgnore]
         public Food Food { get; set; }
- 
+
     }
 
     public class Food

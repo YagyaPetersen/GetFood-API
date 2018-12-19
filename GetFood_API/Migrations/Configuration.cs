@@ -23,7 +23,9 @@ namespace GetFood_API.Migrations
                 new Restaurant() { RestaurantId = 2, RestaurantName = "KFC", Address = "Mill Street, Corner Buitekant Street, Gardens, Cape Town" },
                 new Restaurant() { RestaurantId = 3, RestaurantName = "Nandos", Address = "Adderley St, Shop 6V, Grand Parade Centre, Cape Town City Centre, Cape Town" },
                 new Restaurant() { RestaurantId = 4, RestaurantName = "Steers", Address = "Shop 90 Concourse Level, Adderley Street, Golden Acre, Cape Town" },
-                new Restaurant() { RestaurantId = 5, RestaurantName = "Debonairs", Address = "Shop 2 London House, 128 Main Road, Sea Point, Cape Town" }
+                new Restaurant() { RestaurantId = 5, RestaurantName = "Debonairs", Address = "Shop 2 London House, 128 Main Road, Sea Point, Cape Town" },
+                new Restaurant() { RestaurantId = 6, RestaurantName = "Fishaways", Address = "Cavendish Street, Claremont, Cape Town"},
+                new Restaurant() { RestaurantId = 7, RestaurantName = "Spur", Address = "The Pinnacle Building, Strand St, Cape Town City Centre, Cape Town" }
                 );
 
             context.Foods.AddOrUpdate(
@@ -46,14 +48,25 @@ namespace GetFood_API.Migrations
 
                 new Food() { FoodId = 13, FoodName = "Chicken & Mushroom Pizza", Description = "Chicken, mushroom, tomato, onion, Debonairs sauce", RestaurantId = 5, Price = 100, PrepTime = DateTime.Parse("00:35:00") },
                 new Food() { FoodId = 14, FoodName = "Something Meaty", Description = "Ham, pepperoni, bacon, ground beef, BBQ sauce", RestaurantId = 5, Price = 105, PrepTime = DateTime.Parse("00:40:00") },
-                new Food() { FoodId = 15, FoodName = "Original Veggie", Description = "Mushroom, olives, pineapple, onion, tomato, spring onion", RestaurantId = 5, Price = 86, PrepTime = DateTime.Parse("00:30:00") }
+                new Food() { FoodId = 15, FoodName = "Original Veggie", Description = "Mushroom, olives, pineapple, onion, tomato, spring onion", RestaurantId = 5, Price = 86, PrepTime = DateTime.Parse("00:30:00") },
+                
+                new Food() { FoodId = 16, FoodName = "Regular Hake Meal", Description = "With a medium rice or regular green salad or regular chips", RestaurantId = 6, Price = 35, PrepTime = DateTime.Parse("00:25:00")},
+                new Food() { FoodId = 17, FoodName = "Hake and Calamari tubes", Description = "Medium hake with a medium rice or regular green salad or medium chips", RestaurantId = 6, Price = 90, PrepTime = DateTime.Parse("00:35:00")},
+                new Food() { FoodId = 18, FoodName = "Platter for one", Description = "Regular hake, calamari strips, pop prawns, coleslaw & onion rings with regular rice & a regular green salad or regular chips", RestaurantId = 6 , Price = 100, PrepTime = DateTime.Parse("00:40:00")},
+                
+                new Food() { FoodId = 19, FoodName = "Original Spur Burger", Description = "Our finest ground beef patty (160g) grilled to perfection.", RestaurantId = 7, Price = 75, PrepTime = DateTime.Parse("00:30:00")},
+                new Food() { FoodId = 20, FoodName = "Chargrilled Rump", Description = "Juicy and perfectly prepared.", RestaurantId = 7, Price = 140, PrepTime = DateTime.Parse("00:45:00")},
+                new Food() { FoodId = 21, FoodName = "Chicken Schnitzel", Description = "Panko-crumbed chicken breast fillet, topped with cheese or creamy mushroom sauce.", RestaurantId = 7, Price = 110, PrepTime = DateTime.Parse("00:35:00")}
                 );
 
             context.Drivers.AddOrUpdate(
                  a => a.DriverId,
                  new Driver() { DriverId = 1, FirstName = "John", LastName = "Gordon" },
                  new Driver() { DriverId = 2, FirstName = "Casper", LastName = "Irwin" },
-                 new Driver() { DriverId = 3, FirstName = "Tyrone", LastName = "Simon" }
+                 new Driver() { DriverId = 3, FirstName = "Tyrone", LastName = "Simon" },
+                 new Driver() { DriverId = 4, FirstName = "Nikolas", LastName = "Johnson" },
+                 new Driver() { DriverId = 5, FirstName = "Wyatt", LastName = "Hayden" },
+                 new Driver() { DriverId = 6, FirstName = "Frankie", LastName = "Bateman" }
                  );
 
             context.Customers.AddOrUpdate(
@@ -61,7 +74,9 @@ namespace GetFood_API.Migrations
                 new Customer() { CustomerId = 1, FirstName = "Clayton", LastName = "Horner" },
                 new Customer() { CustomerId = 2, FirstName = "Ashton", LastName = "Fleming" },
                 new Customer() { CustomerId = 3, FirstName = "Bentley", LastName = "Healy" },
-                new Customer() { CustomerId = 4, FirstName = "Sonnie", LastName = "Hartley" }
+                new Customer() { CustomerId = 4, FirstName = "Sonnie", LastName = "Hartley" },
+                new Customer() { CustomerId = 5, FirstName = "Edgar", LastName = "Villa" },
+                new Customer() { CustomerId = 5, FirstName = "Cloe", LastName = "Burrows" }
                 );
 
             context.Order.AddOrUpdate(
@@ -69,10 +84,6 @@ namespace GetFood_API.Migrations
                 new Orders() { OrderId = 1, CustomerId = 1, DriverId = 1, DriverAcceptance = true, RestaurantAcceptance = true, DeliveryTime = DateTime.Parse("00:25:00"), OrderStatus = "Not Collected Yet", DeliveryFee = 10, OverallFee = 50, PickupTime = DateTime.Parse("00:25:00"), CustomerAddress = "169 Upper Canterbury St, Gardens, Cape Town" },
                 new Orders() { OrderId = 2, CustomerId = 2, DriverId = null, DriverAcceptance = false,  RestaurantAcceptance = false, DeliveryTime = DateTime.Parse("00:00:00"), OrderStatus = "Pending...", DeliveryFee = 15, PickupTime = DateTime.Parse("00:00:00"), CustomerAddress = "Grove Street", RestaurantId = 2}
                 );
-            //context.FoodOrders.AddOrUpdate(
-            //    a=>a.FoodOrderId,
-            //    new FoodOrder() { FoodOrderId = 1, OrderId = 1}
-            //    );
         }
     }
 }

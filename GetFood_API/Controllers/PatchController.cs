@@ -1,9 +1,8 @@
 ﻿using GetFood_API.Classes;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
-using Microsoft.Ajax.Utilities;
-using WebGrease.Css.Extensions;
 
 namespace GetFood_API.Controllers
 {
@@ -11,6 +10,7 @@ namespace GetFood_API.Controllers
     {
         GetFoodContext GetFoodContext = new GetFoodContext();
 
+        //Restaurant___________________________________________________________________________________________________________
         [Route("api/acceptRestaurant")]
         [HttpPatch]
         public IHttpActionResult AcceptRestaurant([FromBody]OrderRequest request)
@@ -31,12 +31,12 @@ namespace GetFood_API.Controllers
                 order.OrderStatus = "Pending...";
             }
 
-            GetFoodContext.Order.Add(order);
-            // GetFoodContext.SaveChanges();
+            GetFoodContext.SaveChanges();
 
             return Json(order);
         }
 
+        //Driver_______________________________________________________________________________________________________________
         [Route("api/acceptDriver")]
         [HttpPatch]
         public IHttpActionResult AcceptDriver([FromBody] OrderRequest request)
@@ -47,7 +47,7 @@ namespace GetFood_API.Controllers
 
             var drivers = GetFoodContext.Drivers
                 .ToList()
-                .FirstOrDefault();
+                .FirstOrDefault(a=>a.DriverId == request.DriverId);
 
             if (order.RestaurantAcceptance == false)
             {
@@ -70,10 +70,8 @@ namespace GetFood_API.Controllers
                     return NotFound();
                 }
 
-                GetFoodContext.Order.Add(order);
-                //GetFoodContext.SaveChanges();
+                GetFoodContext.SaveChanges();
             }
-
             return Json(order);
         }
 
@@ -83,52 +81,34 @@ namespace GetFood_API.Controllers
         public IHttpActionResult OrderFood([FromBody]FoodOrder data)
         {
             FoodOrder foodOrder = new FoodOrder();
-
             int[] foods = data.Foods;
-            ICollection<object> foodStorage = new List<object>();
 
-            var currentOrder = GetFoodContext.Order.Where(a => a.OrderId == data.OrderId).ToList().FirstOrDefault();
+            ICollection<Food> foodStorage = new List<Food>();
+            ICollection<decimal> TotalFee = new List<decimal>();
+
+            var currentOrder = GetFoodContext.Order.Include(a=>a.Customer).Where(a => a.OrderId == data.OrderId).ToList().FirstOrDefault();
             foodOrder.Orders = currentOrder;
 
             foreach (var i in foods)
             {
                 var selectedFood = GetFoodContext.Foods.Where(a => a.FoodId == i).ToList().FirstOrDefault();
-                if (selectedFood.RestaurantId != currentOrder.RestaurantId)
+                TotalFee.Add(selectedFood.Price);
+
+                if (currentOrder.RestaurantId == selectedFood.RestaurantId)
                 {
                     foodStorage.Add(selectedFood);
-
                 }
                 else
                 {
-                    return Json(foods);
+                    return NotFound();
                 }
-                
             }
 
-            currentOrder.Foods = foodStorage;
-            
-            GetFoodContext.Order.Add(currentOrder);
-            //GetFoodContext.SaveChanges();
-            return Json(foodOrder);
+            currentOrder.Foods = foodStorage.ToArray();
+            currentOrder.OverallFee = TotalFee.Sum() + currentOrder.DeliveryFee;
+
+            GetFoodContext.SaveChanges();
+            return Json(currentOrder);
         }
-
-        [Route("api/FinaliseOrder")]
-        [HttpPatch]
-        public IHttpActionResult Finalize([FromBody]Orders orderInfo)
-        {
-            //foreach (var i in orderInfo.Foods)
-            //{
-            var fee = GetFoodContext.Order.Where(a => a.OrderId == orderInfo.OrderId).ToList().FirstOrDefault();
-
-            foreach (var i in fee.Foods)
-            {
-                var qwe = fee.Foods.Contains("Price");
-                return Json(qwe);
-            }
-
-            
-            return Json(fee);
-        }
-
     }
 }
