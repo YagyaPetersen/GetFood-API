@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
+using GetFood_API.Models;
 
 namespace GetFood_API.Controllers
 {
@@ -16,6 +17,8 @@ namespace GetFood_API.Controllers
         public IHttpActionResult AcceptRestaurant([FromBody]OrderRequest request)
         {
             var order = GetFoodContext.Order
+                .Include(a=>a.Customer)
+                .Include(a=>a.Foods)
                 .ToList()
                 .FirstOrDefault(a => a.OrderId == request.RequestId);
 
@@ -31,9 +34,11 @@ namespace GetFood_API.Controllers
                 order.OrderStatus = "Pending...";
             }
 
+            var RestaurantResponse = new RestaurantResponse(order);
+
             GetFoodContext.SaveChanges();
 
-            return Json(order);
+            return Json(RestaurantResponse);
         }
 
         //Driver_______________________________________________________________________________________________________________
@@ -42,6 +47,8 @@ namespace GetFood_API.Controllers
         public IHttpActionResult AcceptDriver([FromBody] OrderRequest request)
         {
             var order = GetFoodContext.Order
+                .Include(a=>a.Customer)
+                .Include(a=>a.Foods)
                 .ToList()
                 .FirstOrDefault(a => a.OrderId == request.RequestId);
 
@@ -61,6 +68,7 @@ namespace GetFood_API.Controllers
                 {
                     order.OrderStatus = "Order Confirmed";
                     order.DeliveryFee = request.DeliveryFee;
+                    order.OverallFee = order.DeliveryFee + order.OverallFee;
                     order.DriverId = request.DriverId;
                     order.Driver = drivers;
                     order.DeliveryTime = request.DeliveryTime;
@@ -69,10 +77,11 @@ namespace GetFood_API.Controllers
                 {
                     return NotFound();
                 }
-
                 GetFoodContext.SaveChanges();
             }
-            return Json(order);
+            var DriverResponse = new DriverResponse(order);
+
+            return Json(DriverResponse);
         }
 
         //Cart_________________________________________________________________________________________________________________
@@ -108,7 +117,8 @@ namespace GetFood_API.Controllers
             currentOrder.OverallFee = TotalFee.Sum() + currentOrder.DeliveryFee;
 
             GetFoodContext.SaveChanges();
-            return Json(currentOrder);
+
+            return Ok();
         }
     }
 }

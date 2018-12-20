@@ -76,7 +76,7 @@ namespace GetFood_API.Migrations
                 new Customer() { CustomerId = 3, FirstName = "Bentley", LastName = "Healy" },
                 new Customer() { CustomerId = 4, FirstName = "Sonnie", LastName = "Hartley" },
                 new Customer() { CustomerId = 5, FirstName = "Edgar", LastName = "Villa" },
-                new Customer() { CustomerId = 5, FirstName = "Cloe", LastName = "Burrows" }
+                new Customer() { CustomerId = 6, FirstName = "Cloe", LastName = "Burrows" }
                 );
 
             context.Order.AddOrUpdate(

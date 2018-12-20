@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using GetFood_API.Models;
 
 namespace GetFood_API.Controllers
 {
@@ -17,7 +18,7 @@ namespace GetFood_API.Controllers
         {
             var restaurant = GetFoodContext.Restaurants
                 .ToList();
-
+            
             return Json(restaurant);
         }
 
@@ -27,9 +28,17 @@ namespace GetFood_API.Controllers
         {
             var foods = GetFoodContext.Foods
                 .Where(a => a.RestaurantId == restaurantId)
-                .ToList(); 
+                .ToList();
 
-            return Json(foods);
+            List<object> newFoodResponse = new List<object>();
+
+            foreach (var food in foods)
+            {
+                var FoodResponse = new FoodResponse(food);   
+                newFoodResponse.Add(FoodResponse);
+            }
+
+           return Json(newFoodResponse);
         }
 
     }

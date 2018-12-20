@@ -34,6 +34,7 @@ namespace GetFood_API.Controllers
             newOrder.CustomerId = allCustomers.CustomerId;
             newOrder.CustomerAddress = orderInfo.CustomerAddress;
             newOrder.Customer = allCustomers;
+            newOrder.OrderStatus = "Pending...";
 
             newOrder.RestaurantId = orderInfo.RestaurantId;
             newOrder.Restaurant = allRestaurants;
@@ -46,7 +47,7 @@ namespace GetFood_API.Controllers
 
             var NewOrderResponse = new NewOrderResponse(newOrder);
 
-            return Json(NewOrderResponse);
+            return Json(newOrder.OrderStatus);
         }
 
         //GetOrder_____________________________________________________________________________________________________________
@@ -61,7 +62,9 @@ namespace GetFood_API.Controllers
                 .ToList()
                 .FirstOrDefault();
 
-            return Json(all);
+            var FinalResponse = new FinalResponse(all);
+
+            return Json(FinalResponse);
         }
     }
 }
