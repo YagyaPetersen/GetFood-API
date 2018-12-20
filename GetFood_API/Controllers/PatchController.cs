@@ -90,7 +90,7 @@ namespace GetFood_API.Controllers
         public IHttpActionResult OrderFood([FromBody]FoodOrder data)
         {
             FoodOrder foodOrder = new FoodOrder();
-            int[] foods = data.Foods;
+            List<int> foods = new List<int>();
 
             ICollection<Food> foodStorage = new List<Food>();
             ICollection<decimal> TotalFee = new List<decimal>();
@@ -116,9 +116,9 @@ namespace GetFood_API.Controllers
             currentOrder.Foods = foodStorage.ToArray();
             currentOrder.OverallFee = TotalFee.Sum() + currentOrder.DeliveryFee;
 
-            GetFoodContext.SaveChanges();
+            //GetFoodContext.SaveChanges();
 
-            return Ok();
+            return Json(currentOrder);
         }
     }
 }
