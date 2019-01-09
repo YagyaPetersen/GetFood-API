@@ -1,15 +1,18 @@
 ﻿using GetFood_API.Classes;
+using GetFood_API.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
-using GetFood_API.Models;
 
 namespace GetFood_API.Controllers
 {
+
     public class PatchController : ApiController
     {
         GetFoodContext GetFoodContext = new GetFoodContext();
+
+        public List<object> test = new List<object>();
 
         //Restaurant___________________________________________________________________________________________________________
         [Route("api/acceptRestaurant")]
@@ -18,7 +21,6 @@ namespace GetFood_API.Controllers
         {
             var order = GetFoodContext.Order
                 .Include(a=>a.Customer)
-                .Include(a=>a.Foods)
                 .ToList()
                 .FirstOrDefault(a => a.OrderId == request.RequestId);
 
@@ -48,7 +50,6 @@ namespace GetFood_API.Controllers
         {
             var order = GetFoodContext.Order
                 .Include(a=>a.Customer)
-                .Include(a=>a.Foods)
                 .ToList()
                 .FirstOrDefault(a => a.OrderId == request.RequestId);
 
@@ -79,6 +80,7 @@ namespace GetFood_API.Controllers
                 }
                 GetFoodContext.SaveChanges();
             }
+
             var DriverResponse = new DriverResponse(order);
 
             return Json(DriverResponse);
@@ -89,36 +91,62 @@ namespace GetFood_API.Controllers
         [HttpPatch]
         public IHttpActionResult OrderFood([FromBody]FoodOrder data)
         {
-            FoodOrder foodOrder = new FoodOrder();
-            List<int> foods = new List<int>();
+            var foods = data.FoodNumbers;
 
-            ICollection<Food> foodStorage = new List<Food>();
+            ICollection<Food> foodStore = new List<Food>();
             ICollection<decimal> TotalFee = new List<decimal>();
 
-            var currentOrder = GetFoodContext.Order.Include(a=>a.Customer).Where(a => a.OrderId == data.OrderId).ToList().FirstOrDefault();
-            foodOrder.Orders = currentOrder;
+                var currentOrder = GetFoodContext.Order.Include(a => a.Customer).Where(a => a.OrderId == data.OrderId)
+                    .FirstOrDefault();
 
-            foreach (var i in foods)
-            {
-                var selectedFood = GetFoodContext.Foods.Where(a => a.FoodId == i).ToList().FirstOrDefault();
-                TotalFee.Add(selectedFood.Price);
+                currentOrder.Foods = new List<object>();
 
-                if (currentOrder.RestaurantId == selectedFood.RestaurantId)
+                foreach (var i in foods)
                 {
-                    foodStorage.Add(selectedFood);
+                    var selectedFood = GetFoodContext.Foods.Where(a => a.FoodId == i).ToList().FirstOrDefault();
+                    TotalFee.Add(selectedFood.Price);
+
+                    if (currentOrder.RestaurantId == selectedFood.RestaurantId)
+                    {
+                    
+                    currentOrder.Foods.Add(selectedFood);
+                        test.Add(selectedFood.FoodName);
+                        GetFoodContext.SaveChanges();
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
-                else
-                {
-                    return NotFound();
-                }
+
+                //test = currentOrder.Foods;
+                //currentOrder.Foods = new List<object>();
+                //currentOrder.Foods = foodStore.ToArray();
+                currentOrder.OverallFee = TotalFee.Sum() + currentOrder.DeliveryFee;
+
+                GetFoodContext.SaveChanges();
+
+                return Json(currentOrder);
             }
 
-            currentOrder.Foods = foodStorage.ToArray();
-            currentOrder.OverallFee = TotalFee.Sum() + currentOrder.DeliveryFee;
 
-            //GetFoodContext.SaveChanges();
+        //GetOrder_____________________________________________________________________________________________________________
+        [Route("api/GetOrder/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetOrder(int id)
+        { 
+            var all = GetFoodContext.Order
+                .Include(a => a.Customer)
+                //.Include(a=>a.Foods)
+                .Where(a => a.OrderId == id)
+                .ToList()
+                .FirstOrDefault();
 
-            return Json(currentOrder);
+            all.Foods = test;
+
+            var FinalResponse = new FinalResponse(all);
+
+            return Json(all);
         }
     }
 }

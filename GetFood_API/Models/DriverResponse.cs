@@ -20,7 +20,7 @@ namespace GetFood_API.Models
             public string FoodName { get; set; }
             public string Description { get; set; }
             public decimal Price { get; set; }
-            public DateTime PrepTime { get; set; }
+            public long PrepTime { get; set; }
         }
         List<Food> ChosenFood = new List<Food>();
         public bool DriverAcceptance { get; set; }
@@ -28,8 +28,8 @@ namespace GetFood_API.Models
         public string OrderStatus { get; set; }
         public decimal DeliveryFee { get; set; }
         public decimal OverallFee { get; set; }
-        public DateTime PickupTime { get; set; }
-        public DateTime DeliveryTime { get; set; }
+        public long PickupTime { get; set; }
+        public long DeliveryTime { get; set; }
 
         public DriverResponse(Orders orderInfo)
         {
@@ -38,20 +38,21 @@ namespace GetFood_API.Models
             CustomerAddress = orderInfo.CustomerAddress;
             Restaurant = orderInfo.Restaurant.RestaurantName;
             Driver = orderInfo.Driver.FirstName + " " + orderInfo.Driver.LastName;
-            ICollection<Food> ChosenFood = new List<Food>();
+            //ICollection<Food> ChosenFood = new List<Food>();
 
-            foreach (var i in orderInfo.Foods)
-            {
-                var food = new Food()
-                {
-                    FoodName = i.FoodName,
-                    Description = i.Description,
-                    Price = i.Price,
-                    PrepTime = i.PrepTime
-                };
-                ChosenFood.Add(food);
-            }
-            Foods = ChosenFood.ToList();
+            
+            //foreach (var i in orderInfo.Foods)
+            //{
+            //    var food = new Food()
+            //    {
+            //        //FoodName = i.FoodName,
+            //        //Description = i.Description,
+            //        //Price = i.Price,
+            //        //PrepTime = i.PrepTime
+            //    };
+            //    ChosenFood.Add(food);
+            //}
+            //Foods = ChosenFood.ToList();
             DriverAcceptance = orderInfo.DriverAcceptance;
             RestaurantAcceptance = orderInfo.RestaurantAcceptance;
             OrderStatus = orderInfo.OrderStatus;

@@ -14,7 +14,7 @@ namespace GetFood_API.Models
         public string Description { get; set; }
         public string Restaurant { get; set; }
         public decimal Price { get; set; }
-        public DateTime PrepTime { get; set; }
+        public long PrepTime { get; set; }
 
         public FoodResponse(Food foodInfo)
         {

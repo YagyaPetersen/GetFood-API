@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Linq;
 
 namespace GetFood_API.Classes
 {
@@ -65,13 +68,13 @@ namespace GetFood_API.Classes
         public int? RestaurantId { get; set; }
         public virtual Restaurant Restaurant { get; set; }
 
-        public ICollection<Food> Foods { get; set; }
+        public List<object> Foods { get; set; }
 
         public bool DriverAcceptance { get; set; }
 
         public bool RestaurantAcceptance { get; set; }
 
-        public DateTime PickupTime { get; set; }
+        public long PickupTime { get; set; }
 
         public string OrderStatus { get; set; }
 
@@ -79,7 +82,7 @@ namespace GetFood_API.Classes
 
         public decimal OverallFee { get; set; }
 
-        public DateTime DeliveryTime { get; set; }
+        public long DeliveryTime { get; set; }
 
         [Required]
         [MaxLength(70)]
@@ -89,16 +92,12 @@ namespace GetFood_API.Classes
     public class FoodOrder
     {
         [Key]
-        public int FoodOrderId { get; set; }
-
         [ForeignKey("Orders")]
         public int OrderId { get; set; }
         public Orders Orders { get; set; }
 
-        [ForeignKey("Food")]
-        public int[] Foods { get; set; }
-        public Food Food { get; set; }
-
+        public ICollection<int> FoodNumbers { get; set; }
+        public Food Food{ get; set; }
     }
 
     public class Food
@@ -118,7 +117,7 @@ namespace GetFood_API.Classes
         public decimal Price { get; set; }
 
         [Required]
-        public DateTime PrepTime { get; set; }
+        public long PrepTime { get; set; }
 
         [ForeignKey("Restaurant")]
         public int? RestaurantId { get; set; }
@@ -133,7 +132,7 @@ namespace GetFood_API.Classes
         public bool DriverAcceptance { get; set; }
         public int DriverId { get; set; }
         public int DeliveryFee { get; set; }
-        public DateTime PickupTime { get; set; }
-        public DateTime DeliveryTime { get; set; }
+        public long PickupTime { get; set; }
+        public long DeliveryTime { get; set; }
     }
 }

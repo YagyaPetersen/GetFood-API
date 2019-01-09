@@ -39,32 +39,17 @@ namespace GetFood_API.Controllers
             newOrder.RestaurantId = orderInfo.RestaurantId;
             newOrder.Restaurant = allRestaurants;
 
-            newOrder.PickupTime = DateTime.Parse("00:00:00");
-            newOrder.DeliveryTime = DateTime.Parse("00:00:00");
+            newOrder.PickupTime = 0;
+            newOrder.DeliveryTime = 0;
 
             GetFoodContext.Order.Add(newOrder);
-            //GetFoodContext.SaveChanges();
+            GetFoodContext.SaveChanges();
 
             var NewOrderResponse = new NewOrderResponse(newOrder);
 
-            return Json(newOrder.OrderStatus);
+            return Json(NewOrderResponse);
         }
 
-        //GetOrder_____________________________________________________________________________________________________________
-        [Route("api/GetOrder/{id}")]
-        [HttpGet]
-        public IHttpActionResult GetOrder(int id)
-        {
-            var all = GetFoodContext.Order
-                .Include(a => a.Foods)
-                .Include(a => a.Customer)
-                .Where(a => a.OrderId == id)
-                .ToList()
-                .FirstOrDefault();
-
-            var FinalResponse = new FinalResponse(all);
-
-            return Json(FinalResponse);
-        }
+       
     }
 }
